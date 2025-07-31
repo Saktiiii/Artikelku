@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengenalan Bahasa Pemrograman Java - RPL Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5a6fd8;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-header {
+            background: linear-gradient(45deg, #ED8936, #DD6B20);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .article-category {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .article-content {
+            padding: 3rem;
+        }
+
+        .article-content h2 {
+            color: #ED8936;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #ED8936;
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h3 {
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5f0 0%, #fed7cc 100%);
+            border-left: 4px solid #ED8936;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box h4 {
+            color: #ED8936;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .exercise-box h4 {
+            color: #d97706;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .java-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 2px solid #ED8936;
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .related-articles h3 {
+            text-align: center;
+            color: #ED8936;
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-card h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">🚀 RPL Academy</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="back-btn">← Kembali ke Beranda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="article-container">
+            <div class="article-header">
+                <span class="article-category">☕ Pemrograman</span>
+                <h1 class="article-title">Pengenalan Bahasa Pemrograman Java</h1>
+                <div class="article-meta">
+                    <span>📅 25 September 2024</span>
+                    <span>⏱️ 11 menit baca</span>
+                    <span>👤 Admin RPL</span>
+                </div>
+            </div>
+
+            <div class="article-content">
+                <p>Java adalah salah satu bahasa pemrograman paling populer di dunia, dikembangkan oleh Sun Microsystems (sekarang Oracle) pada tahun 1995. Java terkenal dengan motto "Write Once, Run Anywhere" (WORA), yang berarti kode Java dapat berjalan di berbagai platform tanpa perlu modifikasi.</p>
+
+                <h2>☕ Mengapa Java Begitu Populer?</h2>
+                <p>Java telah menjadi pilihan utama untuk pengembangan aplikasi enterprise, mobile (Android), dan web selama lebih dari 25 tahun. Berikut adalah alasan mengapa Java begitu diminati:</p>
+
+                <div class="java-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h4>Platform Independent</h4>
+                        <p>Berjalan di semua OS dengan JVM</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Secure</h4>
+                        <p>Sistem keamanan yang robust</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏗️</div>
+                        <h4>Object-Oriented</h4>
+                        <p>Mendukung konsep OOP penuh</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4>High Performance</h4>
+                        <p>Compiler dan JIT optimization</p>
+                    </div>
+                </div>
+
+                <h2>🚀 Memulai dengan Java</h2>
+                <h3>Instalasi Java Development Kit (JDK)</h3>
+                <p>Sebelum menulis program Java, kita perlu menginstall JDK terlebih dahulu:</p>
+
+                <div class="highlight-box">
+                    <h4>📥 Langkah Instalasi:</h4>
+                    <ol>
+                        <li>Download JDK dari oracle.com atau openjdk.java.net</li>
+                        <li>Install JDK sesuai dengan sistem operasi Anda</li>
+                        <li>Set environment variable JAVA_HOME</li>
+                        <li>Verifikasi instalasi dengan membuka terminal/command prompt</li>
+                    </ol>
+                </div>
+
+                <div class="code-block">
+                    <pre># Verifikasi instalasi Java
+java -version
+javac -version</pre>
+                </div>
+
+                <h3>Program Java Pertama</h3>
+                <p>Mari kita buat program Java pertama - program "Hello World":</p>
+
+                <div class="code-block">
+                    <pre>// File: HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        System.out.println("Selamat datang di dunia Java!");
+    }
+}</pre>
+                </div>
+
+                <p>Untuk menjalankan program Java:</p>
+                <div class="code-block">
+                    <pre># Compile program
+javac HelloWorld.java
+
+# Jalankan program
+java HelloWorld</pre>
+                </div>
+
+                <h2>📝 Konsep Dasar Java</h2>
+                
+                <h3>1. Variabel dan Tipe Data</h3>
+                <p>Java adalah bahasa yang strongly typed, artinya setiap variabel harus dideklarasikan dengan tipe datanya:</p>
+
+                <div class="code-block">
+                    <pre>public class VariabelDemo {
+    public static void main(String[] args) {
+        // Tipe data primitif
+        int umur = 17;
+        double tinggi = 170.5;
+        char grade = 'A';
+        boolean lulus = true;
+        
+        // Tipe data reference
+        String nama = "Budi Santoso";
+        
+        // Output
+        System.out.println("Nama: " + nama);
+        System.out.println("Umur: " + umur + " tahun");
+        System.out.println("Tinggi: " + tinggi + " cm");
+        System.out.println("Grade: " + grade);
+        System.out.println("Status lulus: " + lulus);
+    }
+}</pre>
+                </div>
+
+                <h3>2. Input dari User</h3>
+                <p>Untuk mengambil input dari user, kita menggunakan class Scanner:</p>
+
+                <div class="code-block">
+                    <pre>import java.util.Scanner;
+
+public class InputDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Masukkan nama Anda: ");
+        String nama = scanner.nextLine();
+        
+        System.out.print("Masukkan umur Anda: ");
+        int umur = scanner.nextInt();
+        
+        System.out.print("Masukkan tinggi Anda (cm): ");
+        double tinggi = scanner.nextDouble();
+        
+        // Output hasil
+        System.out.println("\n=== PROFIL SISWA ===");
+        System.out.println("Nama: " + nama);
+        System.out.println("Umur: " + umur + " tahun");
+        System.out.println("Tinggi: " + tinggi + " cm");
+        
+        // Menghitung tahun lahir
+        int tahunSekarang = 2024;
+        int tahunLahir = tahunSekarang - umur;
+        System.out.println("Tahun lahir: " + tahunLahir);
+        
+        scanner.close();
+    }
+}</pre>
+                </div>
+
+                <h3>3. Operasi Matematika</h3>
+                <p>Java mendukung semua operasi matematika dasar:</p>
+
+                <div class="code-block">
+                    <pre>public class OperasiMatematika {
+    public static void main(String[] args) {
+        int a = 15;
+        int b = 4;
+        
+        System.out.println("=== OPERASI MATEMATIKA ===");
+        System.out.println("a = " + a + ", b = " + b);
+        System.out.println();
+        
+        System.out.println("Penjumlahan: " + a + " + " + b + " = " + (a + b));
+        System.out.println("Pengurangan: " + a + " - " + b + " = " + (a - b));
+        System.out.println("Perkalian: " + a + " * " + b + " = " + (a * b));
+        System.out.println("Pembagian: " + a + " / " + b + " = " + (a / b));
+        System.out.println("Sisa bagi: " + a + " % " + b + " = " + (a % b));
+        
+        // Operasi dengan Math class
+        System.out.println("\n=== OPERASI MATH CLASS ===");
+        System.out.println("Pangkat: " + Math.pow(a, 2));
+        System.out.println("Akar kuadrat: " + Math.sqrt(a));
+        System.out.println("Nilai maksimum: " + Math.max(a, b));
+        System.out.println("Nilai minimum: " + Math.min(a, b));
+    }
+}</pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🏋️ Latihan 1: Kalkulator BMI</h4>
+                    <p>Buatlah program untuk menghitung Body Mass Index (BMI). Program harus meminta input berat badan (kg) dan tinggi badan (m), kemudian menghitung BMI dan memberikan kategori kesehatan.</p>
+                    
+                    <details style="margin-top: 1rem;">
+                        <summary style="cursor: pointer; color: #d97706; font-weight: bold;">💡 Lihat Solusi</summary>
+                        <div class="code-block" style="margin-top: 1rem;">
+                            <pre>import java.util.Scanner;
+
+public class KalkulatorBMI {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("=== KALKULATOR BMI ===");
+        System.out.print("Masukkan berat badan (kg): ");
+        double beratBadan = input.nextDouble();
+        
+        System.out.print("Masukkan tinggi badan (m): ");
+        double tinggiBadan = input.nextDouble();
+        
+        // Hitung BMI
+        double bmi = beratBadan / (tinggiBadan * tinggiBadan);
+        
+        // Tentukan kategori
+        String kategori;
+        if (bmi < 18.5) {
+            kategori = "Kurus";
+        } else if (bmi < 25.0) {
+            kategori = "Normal";
+        } else if (bmi < 30.0) {
+            kategori = "Gemuk";
+        } else {
+            kategori = "Obesitas";
+        }
+        
+        System.out.println("\n=== HASIL ===");
+        System.out.printf("BMI Anda: %.2f\n", bmi);
+        System.out.println("Kategori: " + kategori);
+        
+        input.close();
+    }
+}</pre>
+                        </div>
+                    </details>
+                </div>
+
+                <h2>🔄 Struktur Kontrol</h2>
+                
+                <h3>Conditional Statements</h3>
+                <p>Java menggunakan if-else untuk membuat keputusan berdasarkan kondisi:</p>
+
+                <div class="code-block">
+                    <pre>import java.util.Scanner;
+
+public class SistemNilai {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        System.out.print("Masukkan nilai ujian (0-100): ");
+        int nilai = input.nextInt();
+        
+        String grade;
+        String keterangan;
+        
+        if (nilai >= 90) {
+            grade = "A";
+            keterangan = "Excellent! Sangat baik!";
+        } else if (nilai >= 80) {
+            grade = "B";
+            keterangan = "Good! Baik sekali!";
+        } else if (nilai >= 70) {
+            grade = "C";
+            keterangan = "Fair. Cukup baik.";
+        } else if (nilai >= 60) {
+            grade = "D";
+            keterangan = "Poor. Perlu belajar lebih giat.";
+        } else {
+            grade = "F";
+            keterangan = "Fail. Harus mengulang!";
+        }
+        
+        System.out.println("\n=== HASIL EVALUASI ===");
+        System.out.println("Nilai: " + nilai);
+        System.out.println("Grade: " + grade);
+        System.out.println("Keterangan: " + keterangan);
+        
+        input.close();
+    }
+}</pre>
+                </div>
+
+                <h3>Perulangan (Loops)</h3>
+                <p>Java memiliki tiga jenis loop: for, while, dan do-while:</p>
+
+                <div class="code-block">
+                    <pre>public class PerulanganDemo {
+    public static void main(String[] args) {
+        // For Loop
+        System.out.println("=== FOR LOOP ===");
+        System.out.println("Tabel perkalian 7:");
+        for (int i = 1; i <= 10; i++) {
+            System.out.println("7 x " + i + " = " + (7 * i));
+        }
+        
+        // While Loop
+        System.out.println("\n=== WHILE LOOP ===");
+        System.out.println("Countdown:");
+        int countdown = 5;
+        while (countdown > 0) {
+            System.out.println("Countdown: " + countdown);
+            countdown--;
+        }
+        System.out.println("Blast off! 🚀");
+        
+        // Do-While Loop
+        System.out.println("\n=== DO-WHILE LOOP ===");
+        System.out.println("Bilangan genap 1-10:");
+        int num = 2;
+        do {
+            System.out.print(num + " ");
+            num += 2;
+        } while (num <= 10);
+        System.out.println();
+        
+        // Enhanced For Loop (For-Each)
+        System.out.println("\n=== ENHANCED FOR LOOP ===");
+        String[] buah = {"Apel", "Jeruk", "Mangga", "Pisang"};
+        System.out.println("Daftar buah:");
+        for (String item : buah) {
+            System.out.println("- " + item);
+        }
+    }
+}</pre>
+                </div>
+
+                <h2>🏗️ Object-Oriented Programming</h2>
+                <p>Java adalah bahasa yang sepenuhnya berorientasi objek. Mari kita buat class sederhana:</p>
+
+                <div class="code-block">
+                    <pre>// File: Siswa.java
+public class Siswa {
+    // Atribut (Fields)
+    private String nama;
+    private int umur;
+    private String jurusan;
+    private double nilaiRataRata;
+    
+    // Constructor
+    public Siswa(String nama, int umur, String jurusan) {
+        this.nama = nama;
+        this.umur = umur;
+        this.jurusan = jurusan;
+        this.nilaiRataRata = 0.0;
+    }
+    
+    // Getter methods
+    public String getNama() {
+        return nama;
+    }
+    
+    public int getUmur() {
+        return umur;
+    }
+    
+    public String getJurusan() {
+        return jurusan;
+    }
+    
+    public double getNilaiRataRata() {
+        return nilaiRataRata;
+    }
+    
+    // Setter methods
+    public void setNilaiRataRata(double nilai) {
+        if (nilai >= 0 && nilai <= 100) {
+            this.nilaiRataRata = nilai;
+        }
+    }
+    
+    // Method untuk menampilkan info
+    public void tampilkanInfo() {
+        System.out.println("=== INFO SISWA ===");
+        System.out.println("Nama: " + nama);
+        System.out.println("Umur: " + umur + " tahun");
+        System.out.println("Jurusan: " + jurusan);
+        System.out.println("Nilai Rata-rata: " + nilaiRataRata);
+        System.out.println("Status: " + getStatus());
+    }
+    
+    // Method untuk menentukan status kelulusan
+    public String getStatus() {
+        if (nilaiRataRata >= 75) {
+            return "LULUS";
+        } else {
+            return "BELUM LULUS";
+        }
+    }
+}
+
+// File: TestSiswa.java
+public class TestSiswa {
+    public static void main(String[] args) {
+        // Membuat objek siswa
+        Siswa siswa1 = new Siswa("Andi Pratama", 17, "RPL");
+        siswa1.setNilaiRataRata(85.5);
+        
+        Siswa siswa2 = new Siswa("Sari Dewi", 16, "TKJ");
+        siswa2.setNilaiRataRata(78.0);
+        
+        // Menampilkan info siswa
+        siswa1.tampilkanInfo();
+        System.out.println();
+        siswa2.tampilkanInfo();
+    }
+}</pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🏋️ Latihan 2: Class BankAccount</h4>
+                    <p>Buatlah class BankAccount dengan atribut pemilik, nomor rekening, dan saldo. Buat method untuk deposit, withdraw, dan cek saldo. Pastikan saldo tidak bisa negatif saat withdraw.</p>
+                </div>
+
+                <h2>🎯 Keunggulan Java</h2>
+                <div class="highlight-box">
+                    <h4>⭐ Mengapa Memilih Java:</h4>
+                    <ul>
+                        <li><strong>Write Once, Run Anywhere:</strong> Kode Java dapat berjalan di semua platform</li>
+                        <li><strong>Memory Management:</strong> Garbage Collection otomatis</li>
+                        <li><strong>Rich API:</strong> Library yang sangat lengkap</li>
+                        <li><strong>Multithreading:</strong> Dukungan pemrograman concurrent</li>
+                        <li><strong>Enterprise Ready:</strong> Cocok untuk aplikasi skala besar</li>
+                        <li><strong>Android Development:</strong> Bahasa utama untuk pengembangan Android</li>
+                    </ul>
+                </div>
+
+                <h2>💼 Peluang Karir dengan Java</h2>
+                <p>Menguasai Java membuka banyak peluang karir di bidang teknologi:</p>
+                <ul>
+                    <li><strong>Backend Developer:</strong> Mengembangkan server-side applications</li>
+                    <li><strong>Android Developer:</strong> Membuat aplikasi mobile Android</li>
+                    <li><strong>Enterprise Developer:</strong> Membangun sistem enterprise dengan Spring</li>
+                    <li><strong>Web Developer:</strong> Menggunakan framework seperti Spring Boot</li>
+                    <li><strong>Software Engineer:</strong> Pengembangan software desktop</li>
+                </ul>
+
+                <h2>📚 Langkah Selanjutnya</h2>
+                <p>Setelah memahami dasar Java, Anda dapat melanjutkan ke topik advanced:</p>
+                <ul>
+                    <li>Collections Framework (ArrayList, HashMap, etc.)</li>
+                    <li>Exception Handling</li>
+                    <li>File I/O Operations</li>
+                    <li>JDBC untuk database connectivity</li>
+                    <li>Spring Framework untuk web development</li>
+                    <li>Android Development dengan Java</li>
+                </ul>
+
+                <p>Java adalah bahasa yang powerful dan serbaguna. Dengan menguasai Java, Anda akan memiliki fondasi yang kuat untuk berkarir di dunia teknologi. Selamat belajar! ☕🚀</p>
+            </div>
+
+            <div class="related-articles">
+                <h3>📖 Artikel Terkait</h3>
+                <div class="related-grid">
+                    <div class="related-card" onclick="alert('Artikel: Java Collections Framework')">
+                        <h4>Java Collections Framework</h4>
+                        <p>Pelajari ArrayList, HashMap, TreeSet, dan struktur data lainnya dalam Java.</p>
+                    </div>
+                    <div class="related-card" onclick="alert('Artikel: Exception Handling Java')">
+                        <h4>Exception Handling</h4>
+                        <p>Cara menangani error dan exception dalam program Java dengan try-catch.</p>
+                    </div>
+                    <div class="related-card" onclick="alert('Artikel: Spring Boot')">
+                        <h4>Spring Boot Framework</h4>
+                        <p>Framework populer untuk membangun aplikasi web dan microservices dengan Java.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // Copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('dblclick', function() {
+                const text = this.textContent;
+                navigator.clipboard.writeText(text).then(function() {
+                    const notification = document.createElement('div');
+                    notification.textContent = 'Code copied to clipboard!';
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: #ED8936;
+                        color: white;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        z-index: 10000;
+                        animation: slideIn 0.3s ease;
+                    `;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 2000);
+                });
+            });
+        });
+
+        // Add CSS for slide animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

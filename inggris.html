@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasar Pemrograman Python - RPL Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5a6fd8;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .article-category {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .article-content {
+            padding: 3rem;
+        }
+
+        .article-content h2 {
+            color: #667eea;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h3 {
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .exercise-box h4 {
+            color: #e65100;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .related-articles h3 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-card h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">🚀 RPL Academy</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="back-btn">← Kembali ke Beranda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="article-container">
+            <div class="article-header">
+                <span class="article-category">Mapel</span>
+                <h1 class="article-title">Bahasa Inggris</h1>
+                <div class="article-meta">
+                    <span>📅 1 Oktober 2024</span>
+                    <span>⏱️ 10 menit baca</span>
+                    <span>👤 Admin RPL</span>
+                </div>
+            </div>
+            <div>
+                <div class="article-content">
+                    <p>
+                        English is a global language used in communication, education, business, and technology. For vocational students, mastering English enhances career opportunities and international understanding.
+                    </p>
+
+                    <h2>Grade 10: Basic Communication</h2>
+                    <h3>1. Greetings and Introductions</h3>
+                    <p>Students learn to greet others, introduce themselves, and ask simple questions.</p>
+                    <ul>
+                        <li>"Hello, my name is..."</li>
+                        <li>"Nice to meet you."</li>
+                        <li>"Where are you from?"</li>
+                    </ul>
+
+                    <h3>2. Daily Activities</h3>
+                    <p>Using simple present tense to describe routines and habits:</p>
+                    <div class="code-block">
+                        <pre>I go to school at 7 a.m.
+She studies English every day.</pre>
+                    </div>
+
+                    <h3>3. Descriptive Text</h3>
+                    <p>Describing people, places, or things using adjectives:</p>
+                    <ul>
+                        <li>"My classroom is big and clean."</li>
+                        <li>"The library is quiet."</li>
+                    </ul>
+
+                    <h2>Grade 11: Functional English</h2>
+                    <h3>1. Making Appointments</h3>
+                    <p>Students practice setting and confirming appointments:</p>
+                    <ul>
+                        <li>"Can we meet at 3 p.m.?"</li>
+                        <li>"I'm available on Monday."</li>
+                    </ul>
+
+                    <h3>2. Giving Instructions</h3>
+                    <p>Using imperative sentences:</p>
+                    <div class="code-block">
+                        <pre>Open your book.
+Turn on the computer.
+Please be quiet.</pre>
+                    </div>
+
+                    <h3>3. Narrative Text</h3>
+                    <p>Understanding stories with past tense usage:</p>
+                    <div class="code-block">
+                        <pre>Yesterday, I visited the museum.
+We saw many historical items.</pre>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>Tip:</h4>
+                        <p>Practice English every day by watching movies, reading articles, or speaking with friends.</p>
+                    </div>
+
+                    <div class="exercise-box">
+                        <h4>Exercise:</h4>
+                        <p>Write 5 sentences about your daily routine in English.</p>
+                    </div>
+
+                    <div class="related-articles">
+                        <h3>📚 Related Topics</h3>
+                        <div class="related-grid">
+                            <div class="related-card">
+                                <h4>Simple Present Tense</h4>
+                                <p>Learn how to talk about habits and daily routines.</p>
+                            </div>
+                            <div class="related-card">
+                                <h4>Descriptive Text</h4>
+                                <p>How to describe your surroundings effectively.</p>
+                            </div>
+                            <div class="related-card">
+                                <h4>Past Tense in Stories</h4>
+                                <p>Explore how to narrate events that happened in the past.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    © 2024 RPL Academy — Bahasa Membuka Dunia
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Copy code functionality
+        document.querySelectorAll('.code-block').forEach(block => {
+            block.addEventListener('dblclick', function () {
+                const text = this.textContent;
+                navigator.clipboard.writeText(text).then(function () {
+                    // Create temporary notification
+                    const notification = document.createElement('div');
+                    notification.textContent = 'Code copied to clipboard!';
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: #4CAF50;
+                        color: white;
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        z-index: 10000;
+                        animation: slideIn 0.3s ease;
+                    `;
+                    document.body.appendChild(notification);
+
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 2000);
+                });
+            });
+        });
+
+        // Add CSS for slide animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemrograman Web Dinamis dengan PHP - RPL Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .back-btn {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #5a6fd8;
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-header {
+            background: linear-gradient(45deg, #8B5A96, #6A4C93);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .article-category {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .article-content {
+            padding: 3rem;
+        }
+
+        .article-content h2 {
+            color: #8B5A96;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #8B5A96;
+            padding-bottom: 0.5rem;
+        }
+
+        .article-content h3 {
+            color: #333;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: "PHP";
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            background: #8B5A96;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-left: 4px solid #8B5A96;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .highlight-box h4 {
+            color: #8B5A96;
+            margin-bottom: 0.5rem;
+        }
+
+        .exercise-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .exercise-box h4 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .php-concept {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 4px solid #FF9800;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .php-concept h4 {
+            color: #F57C00;
+            margin-bottom: 0.5rem;
+        }
+
+        .server-concept {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid #2196F3;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .server-concept h4 {
+            color: #1976D2;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-articles {
+            background: #f8f9fa;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .related-articles h3 {
+            text-align: center;
+            color: #8B5A96;
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .related-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .related-card h4 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">🚀 RPL Academy</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="back-btn">← Kembali ke Beranda</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="article-container">
+            <div class="article-header">
+                <span class="article-category">🐘 Web Development</span>
+                <h1 class="article-title">Pemrograman Web Dinamis dengan PHP</h1>
+                <div class="article-meta">
+                    <span>📅 22 September 2024</span>
+                    <span>⏱️ 13 menit baca</span>
+                    <span>👤 Admin RPL</span>
+                </div>
+            </div>
+
+            <div class="article-content">
+                <p>PHP (PHP: Hypertext Preprocessor) adalah bahasa pemrograman server-side yang sangat populer untuk pengembangan web dinamis. Dikembangkan pertama kali oleh Rasmus Lerdorf pada tahun 1994, PHP telah menjadi salah satu bahasa pemrograman web yang paling banyak digunakan di dunia, powering lebih dari 70% website di internet termasuk Facebook, WordPress, dan Wikipedia.</p>
+
+                <h2>🌐 Mengapa PHP untuk Web Development?</h2>
+                <p>PHP memiliki banyak keunggulan yang membuatnya ideal untuk pengembangan web:</p>
+
+                <div class="highlight-box">
+                    <h4>🎯 Keunggulan PHP:</h4>
+                    <ul>
+                        <li><strong>Server-Side Processing:</strong> Kode dijalankan di server, hasil dikirim ke browser</li>
+                        <li><strong>Open Source & Free:</strong> Gratis dan memiliki komunitas besar</li>
+                        <li><strong>Cross-Platform:</strong> Berjalan di Windows, Linux, macOS</li>
+                        <li><strong>Database Friendly:</strong> Mudah integrasi dengan MySQL, PostgreSQL, Oracle</li>
+                        <li><strong>Easy to Learn:</strong> Sintaks mirip C dan Perl, mudah dipelajari</li>
+                        <li><strong>Rich Library:</strong> Ribuan fungsi built-in dan framework</li>
+                    </ul>
+                </div>
+
+                <h2>🔧 Persiapan Lingkungan PHP</h2>
+                <h3>Instalasi XAMPP/WAMP/LAMP</h3>
+                <p>Untuk development PHP, kita butuh server lokal. Pilihan terpopuler:</p>
+
+                <div class="server-concept">
+                    <h4>🖥️ Paket Server Lokal:</h4>
+                    <ul>
+                        <li><strong>XAMPP:</strong> Cross-platform (Windows, Mac, Linux) - Apache, MySQL, PHP, Perl</li>
+                        <li><strong>WAMP:</strong> Windows - Apache, MySQL, PHP</li>
+                        <li><strong>LAMP:</strong> Linux - Apache, MySQL, PHP</li>
+                        <li><strong>MAMP:</strong> Mac - Apache, MySQL, PHP</li>
+                    </ul>
+                </div>
+
+                <p>Setelah instalasi, verifikasi PHP dengan command:</p>
+                <div class="code-block">
+                    <pre>php -v</pre>
+                </div>
+
+                <h2>🚀 Program PHP Pertama</h2>
+                <p>Mari kita buat file PHP pertama. Buat file <code>hello.php</code> di folder <code>htdocs</code> (XAMPP):</p>
+
+                <div class="code-block">
+                    <pre>&lt;?php
+// File: hello.php
+echo "&lt;h1&gt;Hello World dari PHP!&lt;/h1&gt;";
+echo "&lt;p&gt;Selamat datang di dunia web development dengan PHP&lt;/p&gt;";
+
+// Menampilkan tanggal dan waktu
+echo "&lt;p&gt;Sekarang: " . date('Y-m-d H:i:s') . "&lt;/p&gt;";
+
+// Informasi PHP
+echo "&lt;p&gt;Versi PHP: " . phpversion() . "&lt;/p&gt;";
+?&gt;</pre>
+                </div>
+
+                <p>Buka browser dan akses: <code>http://localhost/hello.php</code></p>
+
+                <h2>📝 Konsep Dasar PHP</h2>
+                
+                <h3>1. Variabel dan Tipe Data</h3>
+                <p>PHP adalah bahasa loosely typed, variabel dimulai dengan tanda $:</p>
+
+                <div class="code-block">
+                    <pre>&lt;?php
+// Variabel PHP dimulai dengan $
+$nama = "Budi Santoso";        // String
+$umur = 17;                    // Integer
+$tinggi = 170.5;               // Float
+$aktif = true;                 // Boolean
+$hobi = ["coding", "gaming", "reading"];  // Array
+
+// Output
+echo "&lt;h2&gt;Data Siswa RPL&lt;/h2&gt;";
+echo "&lt;p&gt;Nama: " . $nama . "&lt;/p&gt;";
+echo "&lt;p&gt;Umur: " . $umur . " tahun&lt;/p&gt;";
+echo "&lt;p&gt;Tinggi: " . $tinggi . " cm&lt;/p&gt;";
+echo "&lt;p&gt;Status: " . ($aktif ? "Aktif" : "Tidak Aktif") . "&lt;/p&gt;";
+
+// Menampilkan array
+echo "&lt;p&gt;Hobi: ";
+foreach ($hobi as $h) {
+    echo $h . " ";
+}
+echo "&lt;/p&gt;";
+
+// Cek tipe data
+echo "&lt;p&gt;Tipe data nama: " . gettype($nama) . "&lt;/p&gt;";
+echo "&lt;p&gt;Tipe data umur: " . gettype($umur) . "&lt;/p&gt;";
+?&gt;</pre>
+                </div>
+
+                <h3>2. Form HTML dan PHP</h3>
+                <p>PHP sangat powerful untuk memproses form HTML:</p>
+
+                <div class="code-block">
+                    <pre>&lt;!-- File: form_siswa.php --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Form Data Siswa&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .result { background: #f8f9fa; padding: 20px; border-radius: 5px; margin-top: 20px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;📝 Form Data Siswa RPL&lt;/h1&gt;
+    
+    &lt;form method="POST"&gt;
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;Nama Lengkap:&lt;/label&gt;
+            &lt;input type="text" name="nama" required&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;Umur:&lt;/label&gt;
+            &lt;input type="number" name="umur" min="15" max="25" required&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;Kelas:&lt;/label&gt;
+            &lt;select name="kelas" required&gt;
+                &lt;option value=""&gt;Pilih Kelas&lt;/option&gt;
+                &lt;option value="X RPL 1"&gt;X RPL 1&lt;/option&gt;
+                &lt;option value="X RPL 2"&gt;X RPL 2&lt;/option&gt;
+                &lt;option value="XI RPL 1"&gt;XI RPL 1&lt;/option&gt;
+                &lt;option value="XI RPL 2"&gt;XI RPL 2&lt;/option&gt;
+                &lt;option value="XII RPL 1"&gt;XII RPL 1&lt;/option&gt;
+                &lt;option value="XII RPL 2"&gt;XII RPL 2&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label&gt;Bahasa Pemrograman Favorit:&lt;/label&gt;
+            &lt;select name="bahasa" required&gt;
+                &lt;option value=""&gt;Pilih Bahasa&lt;/option&gt;
+                &lt;option value="PHP"&gt;PHP&lt;/option&gt;
+                &lt;option value="JavaScript"&gt;JavaScript&lt;/option&gt;
+                &lt;option value="Python"&gt;Python&lt;/option&gt;
+                &lt;option value="Java"&gt;Java&lt;/option&gt;
+                &lt;option value="C++"&gt;C++&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+        
+        &lt;button type="submit" name="submit"&gt;💾 Simpan Data&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;?php
+    if (isset($_POST['submit'])) {
+        // Mengambil data dari form
+        $nama = $_POST['nama'];
+        $umur = $_POST['umur'];
+        $kelas = $_POST['kelas'];
+        $bahasa = $_POST['bahasa'];
+        
+        // Validasi dan proses data
+        echo "&lt;div class='result'&gt;";
+        echo "&lt;h2&gt;✅ Data Berhasil Disimpan&lt;/h2&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Nama:&lt;/strong&gt; " . htmlspecialchars($nama) . "&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Umur:&lt;/strong&gt; " . $umur . " tahun&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Kelas:&lt;/strong&gt; " . $kelas . "&lt;/p&gt;";
+        echo "&lt;p&gt;&lt;strong&gt;Bahasa Favorit:&lt;/strong&gt; " . $bahasa . "&lt;/p&gt;";
+        
+        // Menentukan level berdasarkan kelas
+        $tingkat = substr($kelas, 0, 2);
+        switch ($tingkat) {
+            case 'X ':
+                echo "&lt;p&gt;&lt;strong&gt;Level:&lt;/strong&gt; Pemula - Fokus pada dasar pemrograman&lt;/p&gt;";
+                break;
+            case 'XI':
+                echo "&lt;p&gt;&lt;strong&gt;Level:&lt;/strong&gt; Menengah - Mulai project aplikasi&lt;/p&gt;";
+                break;
+            case 'XI':
+                echo "&lt;p&gt;&lt;strong&gt;Level:&lt;/strong&gt; Advanced - Siap magang dan kerja&lt;/p&gt;";
+                break;
+        }
+        
+        echo "&lt;p&gt;&lt;em&gt;Data disimpan pada: " . date('Y-m-d H:i:s') . "&lt;/em&gt;&lt;/p&gt;";
+        echo "&lt;/div&gt;";
+    }
+    ?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                </div>
+
+                <h3>3. Array dan Fungsi</h3>
+                <p>PHP memiliki array yang sangat fleksibel dan fungsi yang powerful:</p>
+
+                <div class="code-block">
+                    <pre>&lt;?php
+// Array indexed
+$bahasa = ["PHP", "JavaScript", "Python", "Java", "C++"];
+
+// Array associative
+$siswa = [
+    "nama" =&gt; "Andi Pratama",
+    "kelas" =&gt; "XI RPL 1",
+    "nilai" =&gt; [
+        "PHP" =&gt; 85,
+        "JavaScript" =&gt; 90,
+        "Database" =&gt; 88
+    ]
+];
+
+echo "&lt;h2&gt;📊 Data Siswa dan Nilai&lt;/h2&gt;";
+
+// Menampilkan data siswa
+echo "&lt;h3&gt;Profil Siswa:&lt;/h3&gt;";
+echo "&lt;p&gt;Nama: " . $siswa["nama"] . "&lt;/p&gt;";
+echo "&lt;p&gt;Kelas: " . $siswa["kelas"] . "&lt;/p&gt;";
+
+// Menampilkan nilai
+echo "&lt;h3&gt;Nilai Mata Pelajaran:&lt;/h3&gt;";
+$total_nilai = 0;
+$jumlah_mapel = count($siswa["nilai"]);
+
+foreach ($siswa["nilai"] as $mapel =&gt; $nilai) {
+    echo "&lt;p&gt;$mapel: $nilai&lt;/p&gt;";
+    $total_nilai += $nilai;
+}
+
+$rata_rata = $total_nilai / $jumlah_mapel;
+echo "&lt;p&gt;&lt;strong&gt;Rata-rata: " . number_format($rata_rata, 2) . "&lt;/strong&gt;&lt;/p&gt;";
+
+// Fungsi untuk menentukan grade
+function hitungGrade($nilai) {
+    if ($nilai &gt;= 90) return "A";
+    elseif ($nilai &gt;= 80) return "B";
+    elseif ($nilai &gt;= 70) return "C";
+    elseif ($nilai &gt;= 60) return "D";
+    else return "F";
+}
+
+echo "&lt;h3&gt;Grade Mata Pelajaran:&lt;/h3&gt;";
+foreach ($siswa["nilai"] as $mapel =&gt; $nilai) {
+    $grade = hitungGrade($nilai);
+    echo "&lt;p&gt;$mapel: $grade&lt;/p&gt;";
+}
+
+// Array methods yang berguna
+echo "&lt;h3&gt;Bahasa Pemrograman Populer:&lt;/h3&gt;";
+echo "&lt;p&gt;Jumlah bahasa: " . count($bahasa) . "&lt;/p&gt;";
+echo "&lt;p&gt;Bahasa pertama: " . $bahasa[0] . "&lt;/p&gt;";
+echo "&lt;p&gt;Bahasa terakhir: " . end($bahasa) . "&lt;/p&gt;";
+
+// Mengurutkan array
+sort($bahasa);
+echo "&lt;p&gt;Urutan alfabetis: " . implode(", ", $bahasa) . "&lt;/p&gt;";
+?&gt;</pre>
+                </div>
+
+                <div class="exercise-box">
+                    <h4>🏋️ Latihan 1: Sistem Nilai Siswa</h4>
+                    <p>Buatlah program PHP yang dapat:</p>
+                    <ul>
+                        <li>Menerima input nama siswa dan 5 nilai mata pelajaran</li>
+                        <li>Menghitung rata-rata nilai</li>
+                        <li>Menentukan grade (A, B, C, D, F)</li>
+                        <li>Menampilkan status kelulusan (lulus jika rata-rata ≥ 70)</li>
+                    </ul>
+                </div>
+
+                <h2>🔄 Struktur Kontrol dalam PHP</h2>
+                
+                <h3>Conditional dan Looping</h3>
+                <p>PHP memiliki struktur kontrol yang mirip dengan bahasa pemrograman lain:</p>
+
+                <div class="code-block">
+                    <pre>&lt;?php
+echo "&lt;h2&gt;🎯 Sistem Penilaian RPL&lt;/h2&gt;";
+
+// Data siswa dengan nilai
+$daftar_siswa = [
+    ["nama" =&gt; "Andi", "nilai" =&gt; 85],
+    ["nama" =&gt; "Budi", "nilai" =&gt; 92],
+    ["nama" =&gt; "Citra", "nilai" =&gt; 78],
+    ["nama" =&gt; "Dina", "nilai" =&gt; 65],
+    ["nama" =&gt; "Eko", "nilai" =&gt; 95]
+];
+
+echo "&lt;table border='1' style='border-collapse: collapse; width: 100%;'&gt;";
+echo "&lt;tr style='background: #f0f0f0;'&gt;";
+echo "&lt;th style='padding: 10px;'&gt;No&lt;/th&gt;";
+echo "&lt;th style='padding: 10px;'&gt;Nama&lt;/th&gt;";
+echo "&lt;th style='padding: 10px;'&gt;Nilai&lt;/th&gt;";
+echo "&lt;th style='padding: 10px;'&gt;Grade&lt;/th&gt;";
+echo "&lt;th style='padding: 10px;'&gt;Status&lt;/th&gt;";
+echo "&lt;th style='padding: 10px;'&gt;Keterangan&lt;/th&gt;";
+echo "&lt;/tr&gt;";
+
+$no = 1;
+$total_lulus = 0;
+$total_tidak_lulus = 0;
+
+foreach ($daftar_siswa as $siswa) {
+    $nama = $siswa["nama"];
+    $nilai = $siswa["nilai"];
+    
+    // Menentukan grade menggunakan if-elseif
+    if ($nilai &gt;= 90) {
+        $grade = "A";
+        $keterangan = "Excellent!";
+        $color = "#28a745";
+    } elseif ($nilai &gt;= 80) {
+        $grade = "B";
+        $keterangan = "Good job!";
+        $color = "#007bff";
+    } elseif ($nilai &gt;= 70) {
+        $grade = "C";
+        $keterangan = "Not bad";
+        $color = "#ffc107";
+    } elseif ($nilai &gt;= 60) {
+        $grade = "D";
+        $keterangan = "Need improvement";
+        $color = "#fd7e14";
+    } else {
+        $grade = "F";
+        $keterangan = "Study harder!";
+        $color = "#dc3545";
+    }
+    
+    // Status kelulusan
+    $status = ($nilai &gt;= 70) ? "LULUS" : "TIDAK LULUS";
+    
+    if ($nilai &gt;= 70) {
+        $total_lulus++;
+    } else {
+        $total_tidak_lulus++;
+    }
+    
+    echo "&lt;tr&gt;";
+    echo "&lt;td style='padding: 8px; text-align: center;'&gt;$no&lt;/td&gt;";
+    echo "&lt;td style='padding: 8px;'&gt;$nama&lt;/td&gt;";
+    echo "&lt;td style='padding: 8px; text-align: center;'&gt;$nilai&lt;/td&gt;";
+    echo "&lt;td style='padding: 8px; text-align: center; color: $color; font-weight: bold;'&gt;$grade&lt;/td&gt;";
+    echo "&lt;td style='padding: 8px; text-align: center;'&gt;$status&lt;/td&gt;";
+    echo "&lt;td style='padding: 8px;'&gt;$keterangan&lt;/td&gt;";
+    echo "&lt;/tr&gt;";
+    
+    $no++;
+}
+
+echo "&lt;/table&gt;";
+
+// Statistik
+echo "&lt;h3&gt;📈 Statistik Kelas:&lt;/h3&gt;";
+echo "&lt;p&gt;Total siswa: " . count($daftar_siswa) . "&lt;/p&gt;";
+echo "&lt;p&gt;Siswa lulus: $total_lulus&lt;/p&gt;";
+echo "&lt;p&gt;Siswa tidak lulus: $total_tidak_lulus&lt;/p&gt;";
+
+$persentase_lulus = ($total_lulus / count($daftar_siswa)) * 100;
+echo "&lt;p&gt;Persentase kelulusan: " . number_
